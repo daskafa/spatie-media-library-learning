@@ -12,8 +12,7 @@ class Article extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
-    public static function sonuncuyuGetir(){
-        return static::all()->last();
-    }
+
+
 
 }

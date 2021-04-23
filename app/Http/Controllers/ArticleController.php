@@ -15,10 +15,12 @@ class ArticleController extends Controller
     public function index()
     {
         $art = Article::all();
-        $articles = Article::with('media')->get();
-//        dd(Article::sonuncuyuGetir());
-        dd(Article::sonuncuyuGetir()->getMedia());
-        return view('articles.index', compact('art', 'articles'));
+//        $v = Article::find(10)->delete();
+//        dd($v);
+//        $x = $art[0]->getMedia('articles');
+//        $val = Article::allMedia()[2]->getMedia('articles');
+//        dd(Article::allMedia()[7]->getFirstMedia()->getUrl());
+        return view('articles.index', compact('art'));
     }
 
     /**
@@ -44,7 +46,7 @@ class ArticleController extends Controller
         $art->title = $request->title;
         $art->content = $request->content;
 
-        $art->addMedia($request->file)->toMediaCollection();
+        $art->addMedia($request->file)->toMediaCollection('laf');
 
         $art->save();
         return back();
@@ -59,7 +61,10 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $show = Article::findOrFail($id);
+        $get = $show->getMedia('laf');
+
+        return view('articles.show', compact('get', 'show'));
     }
 
     /**

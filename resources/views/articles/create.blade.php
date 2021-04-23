@@ -13,7 +13,7 @@
     @csrf
     <input type="text" name="title" placeholder="title">
     <input type="text" name="content" placeholder="content"> <br> <br>
-    <input type="file" name="file"> <br> <br> <br>
+    <input type="file" name="file" multiple> <br> <br> <br>
     <button type="submit">gönder</button>
 </form>
 
