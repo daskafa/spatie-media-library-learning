@@ -9,11 +9,29 @@
 </head>
 <body>
 
+
+@if(session()->has('success'))
+    <div class="alert">
+        {{ session()->get('success') }}
+    </div>
+@endif
 <form action="{{ route('article.store') }}" method="post" enctype="multipart/form-data">
     @csrf
+
+    @if($errors->has('file'))
+        @foreach($errors->get('file') as $error)
+            <p>{{ $error }}</p>
+        @endforeach
+    @endif
+
     <input type="text" name="title" placeholder="title">
     <input type="text" name="content" placeholder="content"> <br> <br>
-    <input type="file" name="file" multiple> <br> <br> <br>
+    <div class="inputs">
+        <input type="file" name="file[]"> <br> <br>
+        <input type="file" name="file[]"> <br> <br>
+        <input type="file" name="file[]"> <br> <br>
+    </div>
+    <br><br>
     <button type="submit">gönder</button>
 </form>
 

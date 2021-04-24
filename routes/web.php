@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 Route::resource('article', \App\Http\Controllers\ArticleController::class);
 Route::resource('butchers', \App\Http\Controllers\ButcherController::class);
 
+Route::get('article/{id}/delete', [\App\Http\Controllers\ArticleController::class, 'delete'])->name('delete.article');

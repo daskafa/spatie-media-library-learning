@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class ArticleController extends Controller
 {
@@ -42,14 +43,16 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $art = new Article();
-
         $art->title = $request->title;
         $art->content = $request->content;
-
-        $art->addMedia($request->file)->toMediaCollection('laf');
+        if ($request->hasFile('file')){
+            foreach ($request->file as $f){
+                $art->addMedia($f)->toMediaCollection('laf');
+            }
+        }
 
         $art->save();
-        return back();
+        return redirect('article');
 
     }
 
@@ -90,14 +93,21 @@ class ArticleController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function delete($id){
+        $deleteArticle = Article::findOrFail($id);
+        $deleteArticle->delete();
+        return back();
     }
+
+//    /**
+//     * Remove the specified resource from storage.
+//     *
+//     * @param  int  $id
+//     * @return \Illuminate\Http\Response
+//     */
+//    public function destroy($id)
+//    {
+//
+//    }
+
 }

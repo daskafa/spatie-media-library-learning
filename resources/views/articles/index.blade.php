@@ -17,8 +17,12 @@
         <li>Title: {{ $w->title }}</li>
         <li>Content: {{ $w->content }}</li>
         <li><a href="{{ route('article.show', $w->id) }}">Link</a></li>
+        <li><a href="{{ route('delete.article', $w->id) }}">delete</a></li>
     </ul>
 @endforeach
+
+
+
 
 </body>
 </html>

@@ -11,10 +11,22 @@
 
 <h1>Articles Show Page</h1>
 <a href="{{ route('article.create') }}">create</a> <br> <br>
+<hr>
 <p>{{ $show->title }}</p>
+<hr>
 <p>{{ $show->content }}</p>
-<img style="width: 50px; height: 50px;" src="{{ $get[0]->getFullUrl() }}" alt="">
+<p>İlk Resim: <br>
+<img style="width: 250px; height: 250px;" src="{{ $get[0]->getUrl() }}" alt=""> </p>
+<hr>
+<p>Diğer Resimler: </p>
 
+
+
+@foreach($get as $g)
+ @if($loop->first) @continue @endif {{-- array_slice da kullanılabilir sankim --}}
+<img style="width: 250px; height: 250px;" src="{{ $g->getUrl() }}" alt="">
+@endforeach
+<hr>
 
 </body>
 </html>
