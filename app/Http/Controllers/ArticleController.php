@@ -47,7 +47,9 @@ class ArticleController extends Controller
         $art->content = $request->content;
         if ($request->hasFile('file')){
             foreach ($request->file as $f){
-                $art->addMedia($f)->toMediaCollection('laf');
+                $art
+                    ->addMedia($f)
+                    ->toMediaCollection('laf');
             }
         }
 
@@ -78,7 +80,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        return view('articles.update', compact('article'));
     }
 
     /**
@@ -90,7 +93,17 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::findOrFail($id);
+        $article->title = $request->title;
+        $article->content = $request->content;
+        if ($request->hasFile('file')){
+            $article->delete();
+            foreach ($request->file as $f){
+                $article->addMedia($f)->toMediaCollection('laf');
+            }
+        }
+        $article->save();
+        return redirect()->route('article.index');
     }
 
     public function delete($id){

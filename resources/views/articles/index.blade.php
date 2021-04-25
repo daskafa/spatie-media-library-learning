@@ -18,6 +18,7 @@
         <li>Content: {{ $w->content }}</li>
         <li><a href="{{ route('article.show', $w->id) }}">Link</a></li>
         <li><a href="{{ route('delete.article', $w->id) }}">delete</a></li>
+        <li><a href="{{ route('article.edit', $w->id) }}">güncelle</a></li>
     </ul>
 @endforeach
 

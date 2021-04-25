@@ -10,8 +10,12 @@
 <body>
 
 <h1>Articles Show Page</h1>
+<a href="{{ route('article.index') }}">anasayfa</a> <br>
 <a href="{{ route('article.create') }}">create</a> <br> <br>
 <hr>
+
+
+
 <p>{{ $show->title }}</p>
 <hr>
 <p>{{ $show->content }}</p>
@@ -24,9 +28,20 @@
 
 @foreach($get as $g)
  @if($loop->first) @continue @endif {{-- array_slice da kullanılabilir sankim --}}
-<img style="width: 250px; height: 250px;" src="{{ $g->getUrl() }}" alt="">
+ @if($g->mime_type == 'image/jpeg' || 'image/jpg' || 'image/png')
+     @if($g->mime_type == 'application/pdf') @continue @endif
+    <img style="width: 250px; height: 250px;" src="{{ $g->getUrl() }}" alt="">
+@endif
+
+
+
 @endforeach
 <hr>
+@foreach($get as $g)
+@if($g->mime_type == 'application/pdf')
+    <a href="{{ $g->getUrl() }}">PDF için tıkla</a> <br> <br>
+@endif
+@endforeach
 
 </body>
 </html>
